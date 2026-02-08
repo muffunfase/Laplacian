@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derivative Calc</title>
+</head>
+<body>
+    <form action="/derivative" method="POST">
+        <input type="text" id="expression" name="expression" placeholder="Enter a function (** = ^)">
+        <input type="text" id="wrt" name='wrt' placeholder="With respect to: (default x)">
+        <input type ='number' id='num' name='num' placeholder='How many derivatives? (default 1)'>
+        <button>Take the Derivative</button>
+        {% if derivative %}
+        <p id="result">The {{numderivatives}} Derivative of {{expression}} with respect to {{wrt}} is {{derivative}}.</p>
+        {% endif %}
+    </form>
+    <form action="/laplacian" method="POST">
+        
+        <input type="text" id="lpexp" name="lpexp" placeholder="Enter a function (** = ^)">
+        <button>Laplaciate</button>
+        {% if lp %}
+        <p id="result">The Laplacian of {{lpexp}} is {{lp}}.</p>
+        {% endif %}
+        {% if error %}
+        <p id="error">{{error}}</p>
+        {% endif %}
+    </form>
+    <form action="/vectorlaplacian" method="POST">
+        
+        <input type="text" id="vlap" name="vlap" placeholder="Enter a vector function (x, y, z)">
+        <button>complete</button>
+    </form>
+    {% if laplacian %}
+    <p>The Laplacian of {{laplacianexpression}} is {{laplacian}}.</p>
+    {% endif %}
+</body>
+</html>
