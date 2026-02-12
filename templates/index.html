@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Derivative Calc</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container"> 
     <form action="/derivative" method="POST">
         <input type="text" id="expression" name="expression" placeholder="Enter a function (** = ^)">
         <input type="text" id="wrt" name='wrt' placeholder="With respect to: (default x)">
@@ -16,7 +18,6 @@
         {% endif %}
     </form>
     <form action="/laplacian" method="POST">
-        
         <input type="text" id="lpexp" name="lpexp" placeholder="Enter a function (** = ^)">
         <button>Laplaciate</button>
         {% if lp %}
@@ -34,5 +35,7 @@
     {% if laplacian %}
     <p>The Laplacian of {{laplacianexpression}} is {{laplacian}}.</p>
     {% endif %}
+</div>
+
 </body>
 </html>

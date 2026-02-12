@@ -2,7 +2,14 @@ import sympy as sp
 from flask import Flask, render_template, request, jsonify
 from sympy import sin, cos
 import numpy as np
+import csv
 import math
+with open ('Potentials.csv', newline='') as csv_file:
+    spamreader = csv.reader(csv_file, delimiter=',', quotechar='|')
+    for row in spamreader:
+        print(', '.join(row))
+
+    
 
 
 e = math.e
@@ -71,6 +78,7 @@ def vectorlaplacian():
     initialv = vector
     if vector:        
 ################################
+        vector = vector.replace('^', '**')
         vector = vector.replace('e', 'E')
         ##vector = vector.replace('(', '')
         vector = vector.replace(' ', '')
@@ -104,6 +112,10 @@ def vectorlaplacian():
             resultantvector.append(totalsecondderr)
             count = count + 1
             laplacian = laplacian + secondderr
+        if dimension == 1:
+            resultantvector = resultantvector[0]
+        resultantvector = str(resultantvector)
+        resultantvector = resultantvector.replace('**', '^')
         print('Final Laplacian:', laplacian)
         print('Laplacian vector:', resultantvector)
         print('Input was a', dimension, 'dimensional vector.')
