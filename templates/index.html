@@ -17,16 +17,6 @@
         <p id="result">The {{numderivatives}} Derivative of {{expression}} with respect to {{wrt}} is {{derivative}}.</p>
         {% endif %}
     </form>
-    <form action="/laplacian" method="POST">
-        <input type="text" id="lpexp" name="lpexp" placeholder="Enter a function (** = ^)">
-        <button>Laplaciate</button>
-        {% if lp %}
-        <p id="result">The Laplacian of {{lpexp}} is {{lp}}.</p>
-        {% endif %}
-        {% if error %}
-        <p id="error">{{error}}</p>
-        {% endif %}
-    </form>
     <form action="/vectorlaplacian" method="POST">
         
         <input type="text" id="vlap" name="vlap" placeholder="Enter a vector function (x, y, z)">

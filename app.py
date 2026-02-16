@@ -4,44 +4,18 @@ from sympy import sin, cos
 import numpy as np
 import csv
 import math
-with open ('Potentials.csv', newline='') as csv_file:
-    spamreader = csv.reader(csv_file, delimiter=',', quotechar='|')
+values = []
+with open ('Potentials.csv', newline='', encoding='utf-8-sig') as csv_file:
+    spamreader = csv.reader(csv_file, delimiter=',')
     for row in spamreader:
-        print(', '.join(row))
-
-    
-
-
-e = math.e
-print(e)
+        values.append(row)
+values = [[float(item) for item in array] for array in values]
+print(values)
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('index.html')
-
-@app.route("/laplacian", methods=['POST'])
-def laplacian():
-    lpexp = request.form['lpexp']
-    if lpexp:
-        wrt = ['x', 'y', 'z'] ##temporary
-        result = 0
-        for item in wrt:
-            print(item)
-            lp = (sp.diff(sp.diff(lpexp, sp.symbols(item)), sp.symbols(item))) ## temp
-            print(lp)
-            result = result + lp
-            print(result)
-            lp = result
-            print(lp)
-        lpexp = str(lpexp)
-        lp = str(lp)
-        lpexp = lpexp.replace('**', '^')
-        lp = lp.replace('**', '^')
-        return render_template('index.html', lp=lp, lpexp=lpexp)
-    else:
-        return render_template('index.html', error='N/A')
-
 
 @app.route('/derivative', methods=['POST'])
 def derivative():
@@ -70,7 +44,6 @@ def derivative():
     newderivative = newderivative.replace('*', '')
 
     return render_template('index.html', derivative=str(newderivative), wrt=wrt, expression=exp, numderivatives=numtoword(int(num)))
-
 
 @app.route('/vectorlaplacian', methods=['POST'])
 def vectorlaplacian():
@@ -119,8 +92,6 @@ def vectorlaplacian():
         print('Final Laplacian:', laplacian)
         print('Laplacian vector:', resultantvector)
         print('Input was a', dimension, 'dimensional vector.')
-        return render_template('index.html', laplacian=str(resultantvector), laplacianexpression=initialv)
-
-        
+        return render_template('index.html', laplacian=str(resultantvector), laplacianexpression=initialv)      
     else: 
         return render_template('index.html', error='N/A')
