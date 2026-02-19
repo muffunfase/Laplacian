@@ -11,11 +11,37 @@ with open ('Potentials.csv', newline='', encoding='utf-8-sig') as csv_file:
         values.append(row)
 values = [[float(item) for item in array] for array in values]
 print(values)
+
+data = np.array(values)
+
+#split into columns 
+r = data[:, 0]
+v = data[:, 1]
+
+## taking the first derivative wrt r
+deriv = np.gradient(v, r)
+## inside term (r^2 * dV)
+inside = r**2 * deriv
+## second derivative wrt r
+secondderiv = np.gradient(inside, r)
+
+laplcian = 1/r**2 * secondderiv
+
+result = np.column_stack((r, v, laplcian))
+print(result)
+
+#print('r:', r)
+#print('v:', v)
+
+## equation is 1/r^2 * d/dr(r^2 * dv/dr)
+
+
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    result = result
+    return render_template('index.html', info=result)
 
 @app.route('/derivative', methods=['POST'])
 def derivative():
